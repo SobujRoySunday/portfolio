@@ -10,9 +10,9 @@ body {
 }
 
 h1 {
-  @apply text-5xl;
+  @apply text-3xl;
 }
 
 h2 {
-  @apply text-xl font-medium tracking-wider;
+  @apply text-xl;
 }

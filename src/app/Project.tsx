@@ -10,7 +10,7 @@ const Project = ({ params }: {
   }
 }) => {
   return (
-    <Link href={params.image} className="flex flex-col w-96 bg-gray-900 rounded-lg shadow-md text-white" target="_blank">
+    <Link href={params.image} className="flex flex-col w-80 bg-gray-900 rounded-lg shadow-md text-white" target="_blank">
       <Image src='/placeholder.png' alt={params.name} width={960} height={540} className="rounded-md" />
       <div className="flex flex-col m-2 gap-2">
         <h2>{params.name}</h2>
