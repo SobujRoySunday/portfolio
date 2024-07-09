@@ -6,7 +6,6 @@ import SkillSets from "./components/SkillSets";
 export default function Home() {
   return (
     <main className="flex flex-col items-center justify-between overflow-hidden">
-      <Navbar />
       <Hero />
       <SkillSets />
       <section className="flex flex-col gap-16 p-10 w-screen justify-center items-center">
