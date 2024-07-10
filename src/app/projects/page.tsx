@@ -16,7 +16,7 @@ const ProjectPage = () => {
   }, []);
 
   return (
-    <main className="flex flex-col items-center justify-between w-[80%] mx-auto mt-10">
+    <main className="flex flex-col items-center justify-between w-full md:w-[90%] lg:w-[80%] mx-auto mt-10">
       <div className="w-full flex flex-col">
         <Projects projects={projects} />
       </div>
