@@ -18,16 +18,16 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="flex flex-col items-center justify-between w-[80%] mx-auto mt-10">
+    <main className="flex flex-col items-center justify-between w-[90%] lg:w-[80%] mx-auto mt-10">
       {/* Hero Section */}
-      <h2 className="text-[16rem] font-extralight leading-[16rem] text-center">FULL-STACK<br />DEVELOPER</h2>
+      <h2 className="text-[6rem] lg:text-[16rem] font-light lg:font-extralight leading-[8rem] lg:leading-[16rem] text-center">FULL-STACK<br />DEVELOPER</h2>
       <div className="flex flex-row justify-between w-[68%]">
         <p className="text-xl font-semibold">CURRENTLY STUDYING<br />AT TECHNO INTERNATIONAL NEW TOWN</p>
         <p className="text-xl font-semibold">(2022 - PRESENT)</p>
       </div>
 
       {/* About Section */}
-      <div className='w-full mt-36 p-24 grid grid-cols-2'>
+      <div className='w-full mt-36 p-24 lg:grid lg:grid-cols-2'>
         <div className='p-8 flex flex-col items-center justify-center gap-4'>
           <p className='text-2xl uppercase leading-10'>🚀 Turning code into conversation! For the past <b>6 years</b>, my world has revolved around transforming ideas into digital realities as a dedicated <b>MERN Stack developer</b>. With a deep dive into the realms of <b>T3 and LAMP Stacks</b>, my toolkit is ever-expanding, mirroring my quest for learning.</p>
           <div className='h-[2px] w-32 bg-gray-950'></div>
@@ -44,7 +44,7 @@ export default function HomePage() {
       </div>
 
       {/* Contact Section */}
-      <Contact />
+      <Contact className="" />
     </main>
   )
 }

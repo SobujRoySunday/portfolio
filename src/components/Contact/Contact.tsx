@@ -25,13 +25,13 @@ const Contact = ({ className = "" }: { className: string }) => {
   return (
     <div className={`w-full mt-36 flex flex-col ${className}`}>
       <div className="p-8">
-        <h2 className="uppercase text-[192px]">Get in</h2>
-        <h2 className="uppercase text-[192px]">touch</h2>
+        <h2 className="uppercase text-[96px] lg:text-[192px]">Get in <span className='inline lg:hidden'>touch</span></h2>
+        <h2 className="uppercase text-[96px] lg:text-[192px] hidden lg:block">touch</h2>
       </div>
 
-      <div className='w-full p-24 grid grid-cols-2'>
+      <div className='w-full p-24 lg:grid lg:grid-cols-2'>
         <div className='p-8 flex flex-col items-center justify-center gap-4'>
-          <p className='text-5xl uppercase leading-[4rem]'>If you have any enquiry or suggestions or just want to say hi, feel free to contact me 👋</p>
+          <p className='text-4xl lg:text-5xl uppercase leading-[4rem]'>If you have any enquiry or suggestions or just want to say hi, feel free to contact me 👋</p>
         </div>
         <div className='flex items-center justify-center'>
           <img src="assets/contact.jpg" alt="Contact Image" className='myImage object-cover rounded-full w-96 mx-auto' />
