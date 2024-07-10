@@ -4,7 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 
 export default async function Home() {
-  const projects: Project[] = (await axios.get("http://localhost:3000/api/get-top-projects")).data.data;
+  const projects: Project[] = (await axios.get(`${process.env.BASE_URL}/api/get-top-projects`)).data.data;
 
   return (
     <main className="flex flex-col items-center justify-between w-[80%] mx-auto mt-10">
