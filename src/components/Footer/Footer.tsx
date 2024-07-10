@@ -2,7 +2,7 @@
 
 const Footer = () => {
   return (
-    <div className="border-t-2 flex flex-row justify-between items-center p-8 mt-24">
+    <div className="border-t-2 flex flex-col gap-4 md:gap-0 md:flex-row justify-between items-center p-8 mt-24">
       {/* Social Links */}
       <div>
         <ul className="flex flex-row gap-2 w-[120px]">

@@ -32,5 +32,5 @@ body {
 .myImage {
   mask-image: url(mask.png);
   -webkit-mask-image: url(mask.png);
-  mask-size: contain;
+  mask-size: cover;
 }

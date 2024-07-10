@@ -23,3 +23,15 @@ model Project {
 
   @@map("project")
 }
+
+model Contact {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  email   String @unique
+  message String
+
+  createdAt  DateTime @default(now())
+  modifiedAt DateTime @updatedAt
+
+  @@map("contact")
+}
