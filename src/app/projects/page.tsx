@@ -5,7 +5,7 @@ import { Project } from '@prisma/client';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const ProjectPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
@@ -24,4 +24,4 @@ const page = () => {
   )
 }
 
-export default page
+export default ProjectPage;
