@@ -6,7 +6,7 @@ const Projects = ({ projects }: { projects: Project[] }) => {
   return (
     <>
       <h2 className="p-8 uppercase text-[192px] self-end">Projects Showcase</h2>
-      {projects.map((project, index) => (
+      {projects && projects.map((project, index) => (
         <div key={project.id} className={`w-fit p-8 flex flex-col justify-center gap-4 ${index % 2 === 0 ? 'self-start' : 'self-end'}`}>
           <Image width={1920} height={1080} src={project.image} alt={project.name} className="object-cover w-auto h-[600px] hover:-translate-y-5 duration-300" priority />
           <h2 className="text-4xl font-semibold">{project.name}</h2>

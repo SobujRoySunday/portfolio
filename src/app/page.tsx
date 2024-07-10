@@ -1,10 +1,20 @@
+"use client"
+
 import Projects from "@/components/Projects/Projects";
 import { Project } from "@prisma/client";
 import axios from "axios";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-export default async function Home() {
-  const projects: Project[] = (await axios.get(`/api/get-top-projects`)).data.data;
+export default function page() {
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const projects: Project[] = (await axios.get(`/api/get-top-projects`)).data.data;
+      projects && setProjects(projects);
+    })();
+  }, []);
 
   return (
     <main className="flex flex-col items-center justify-between w-[80%] mx-auto mt-10">
