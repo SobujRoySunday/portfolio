@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Header from '@/components/Header/Header'
-import Footer from '@/components/Footer'
+import Footer from '@/components/Footer/Footer'
 
 
 export const metadata: Metadata = {
@@ -17,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <div className='fixed rotate-90 text-[496px] font-black top-[5rem] left-[-20rem] -z-10 opacity-5'>DEV</div>
         <Header />
         {children}
         <Footer />

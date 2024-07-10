@@ -11,6 +11,7 @@ body {
   @apply text-gray-950;
 }
 
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -23,7 +24,13 @@ body {
   background: #333;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* Masked Image */
+.myImage {
+  mask-image: url(mask.png);
+  -webkit-mask-image: url(mask.png);
+  mask-size: contain;
 }

@@ -10,15 +10,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Projects {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+model Project {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
   image       String
-  timeline    String
+  url         String
+  isStarred   Boolean @default(false)
 
   isCreated DateTime @default(now())
   isUpdated DateTime @updatedAt
 
-  @@map("projects")
+  @@map("project")
 }

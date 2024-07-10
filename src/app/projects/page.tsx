@@ -1,8 +1,17 @@
+import Projects from '@/components/Projects/Projects';
+import { Project } from '@prisma/client';
+import axios from 'axios';
 import React from 'react'
 
-const page = () => {
+const page = async () => {
+  const projects: Project[] = (await axios.get("http://localhost:3000/api/get-all-projects")).data.data;
+
   return (
-    <div>Projects page</div>
+    <main className="flex flex-col items-center justify-between w-[80%] mx-auto mt-10">
+      <div className="w-full flex flex-col">
+        <Projects projects={projects} />
+      </div>
+    </main>
   )
 }
 
