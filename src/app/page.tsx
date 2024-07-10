@@ -1,5 +1,6 @@
 "use client"
 
+import Contact from "@/components/Contact/Contact";
 import Projects from "@/components/Projects/Projects";
 import { Project } from "@prisma/client";
 import axios from "axios";
@@ -43,6 +44,7 @@ export default function HomePage() {
       </div>
 
       {/* Contact Section */}
+      <Contact />
     </main>
   )
 }

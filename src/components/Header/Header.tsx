@@ -31,12 +31,12 @@ function Header() {
             </td>
           </tr>
           {/* About link */}
-          <tr>
+          {/* <tr>
             <td>{currentPath === "/about" ? <img src="assets/play-button.png" className="mr-2" /> : ''}</td>
             <td>
               <Link href="/about">ABOUT</Link>
             </td>
-          </tr>
+          </tr> */}
           {/* Contact link */}
           <tr>
             <td>{currentPath === "/contact" ? <img src="assets/play-button.png" className="mr-2" /> : ''}</td>
