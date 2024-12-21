@@ -1,12 +1,10 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Header from '@/components/Header/Header'
-import Footer from '@/components/Footer/Footer'
-
+import { Footer } from '@/components'
 
 export const metadata: Metadata = {
   title: 'Sorbopriyo Roy - Full stack Developer',
-  description: 'The portfolio of the greatest Web Developer of all time :)',
+  description: 'The portfolio of the greatest Web Developer of all time 😉',
 }
 
 export default function RootLayout({
@@ -17,8 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className='fixed rotate-90 text-[300px] md:text-[496px] font-black top-[5rem] left-[-15rem] md:left-[-20rem] -z-10 opacity-5'>DEV</div>
-        <Header />
+        <div className='fixed rotate-90 text-[300px] md:text-[420px] font-black top-[5rem] left-[-15rem] md:left-[-20rem] -z-10 opacity-5'>DEV</div>
         {children}
         <Footer />
       </body>

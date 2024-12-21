@@ -1,20 +1,31 @@
-import { Project } from '@prisma/client'
+import { prisma } from '@/lib/db/prisma'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
-const Projects = ({ projects }: { projects: Project[] }) => {
+const Projects = async () => {
+  const projects = await prisma.project.findMany({
+    where: {
+      isStarred: true,
+    }
+  });
+
   return (
-    <>
-      <h2 className="p-8 uppercase text-[48px] md:text-[96px] lg:text-[192px]">Projects Showcase</h2>
-      {projects && projects.map((project, index) => (
-        <div key={project.id} className={`w-fit p-8 flex flex-col justify-center gap-4 ${index % 2 === 0 ? 'self-start' : 'self-start lg:self-end'}`}>
-          <Image width={1920} height={1080} src={project.image} alt={project.name} className="object-cover w-auto h-[150px] md:h-[300px] lg:h-[600px] hover:-translate-y-5 duration-300" priority />
-          <h2 className="text-2xl md:text-4xl font-semibold">{project.name}</h2>
-          <p className="text-sm md:text-base font-semibold text-gray-700">{project.description}</p>
-          <a href={project.url} className="text-xs md:text-base w-fit p-2 border-2 border-gray-950 hover:bg-gray-950 hover:text-white duration-300" target="_blank">Visit Project</a>
+    <section id='projects' className='flex justify-center items-center'>
+      <div className='w-full sm:w-4/5 flex flex-col justify-center mt-12 px-2 sm:px-0'>
+        <h2 className="uppercase text-[3.25rem] sm:text-[10rem] font-bold">Projects</h2>
+        <div className='flex flex-wrap gap-4 sm:gap-8 justify-center'>
+          {projects.length > 0 && projects.map((project, index) => (
+            <Link href={project.url} key={project.id} className={`w-96 flex flex-col shadow-xl hover:scale-105 transition rounded-xl bg-background gap-4 pb-4`}>
+              <Image width={1280} height={720} src={project.image} alt={project.name} className="object-cover" priority />
+              <h2 className="px-4 text-3xl font-semibold">{project.name}</h2>
+              <p className="px-4 text-sm font-medium text-gray-700">{project.description}</p>
+            </Link>
+          ))}
         </div>
-      ))}
-    </>
+        <Link href="/projects" className="mt-12 self-center text-base w-fit px-8 py-4 border-2 border-foreground hover:bg-foreground hover:text-white transition">View All Projects</Link>
+      </div>
+    </section>
   )
 }
 

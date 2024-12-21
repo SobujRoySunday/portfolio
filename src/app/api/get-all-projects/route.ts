@@ -6,6 +6,8 @@ export async function GET() {
     const projects = await prisma.project.findMany();
     return NextResponse.json({ message: 'Projects fetched successfully', success: true, data: projects })
   } catch (error: any) {
+    console.log(error);
+    
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }

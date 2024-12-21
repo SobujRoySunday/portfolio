@@ -1,36 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --foreground: #171717;
+  --background: #ffffff;
+  --foregroundHover: #333;
+}
+
+/* Top level designs */
 
 body {
   scrollbar-width: thin;
-  scrollbar-color: #333 #f1f1f1;
-  font-family: "Poppins", sans-serif;
-  @apply bg-gray-50;
-  @apply text-gray-950;
+  scrollbar-color: var(--foreground) var(--background);
+
+  @apply bg-background text-foreground font-poppins scroll-smooth;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  @apply w-1;
 }
 
 ::-webkit-scrollbar-track {
-  background: #ff000000;
+  @apply bg-transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  @apply bg-foreground transition-all duration-300;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  @apply bg-foregroundHover cursor-pointer;
 }
 
 /* Masked Image */
 .myImage {
-  mask-image: url(mask.png);
-  -webkit-mask-image: url(mask.png);
+  mask-image: url("/assets/mask.png");
+  -webkit-mask-image: url("/assets/mask.png");
   mask-size: cover;
 }
