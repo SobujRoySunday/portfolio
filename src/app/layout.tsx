@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Footer } from '@/components'
+import { Footer, Navbar } from '@/components'
 
 export const metadata: Metadata = {
   title: 'Sorbopriyo Roy - Full stack Developer',
@@ -16,6 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className='fixed rotate-90 text-[300px] md:text-[420px] font-black top-[5rem] left-[-15rem] md:left-[-20rem] -z-10 opacity-5'>DEV</div>
+        <Navbar />
         {children}
         <Footer />
       </body>

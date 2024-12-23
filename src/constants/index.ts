@@ -4,8 +4,30 @@ import {
   FaInstagram,
   FaLinkedin,
   FaArrowAltCircleRight,
+  FaHtml5,
+  FaCss3,
+  FaReact,
+  FaNode,
+  FaGitAlt,
+  FaPython,
+  FaJava,
+  FaWindows,
 } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
+import { IoLogoJavascript } from "react-icons/io";
+import {
+  SiExpress,
+  SiNextdotjs,
+  SiMongodb,
+  SiPrisma,
+  SiPostman,
+  SiVercel,
+  SiNetlify,
+  SiNotion,
+} from "react-icons/si";
+import { RiTailwindCssFill } from "react-icons/ri";
+import { VscVscode } from "react-icons/vsc";
+
 import UP_ARROW_IMAGE from "../../public/assets/up-arrow.png";
 import PERSON_IMAGE from "../../public/assets/me.png";
 import PERSON_JUMPING_IMAGE from "../../public/assets/person_jumping.png";
@@ -17,11 +39,11 @@ export const NAV_ITEMS = [
   },
   {
     label: "ABOUT",
-    href: "#about",
+    href: "/about",
   },
   {
     label: "PROJECTS",
-    href: "#projects",
+    href: "/projects",
   },
 ];
 
@@ -65,4 +87,23 @@ export {
   PERSON_IMAGE,
   PERSON_JUMPING_IMAGE,
   FaArrowAltCircleRight,
+  FaHtml5,
+  FaCss3,
+  IoLogoJavascript,
+  FaReact,
+  FaNode,
+  SiExpress,
+  SiNextdotjs,
+  RiTailwindCssFill,
+  SiMongodb,
+  FaGitAlt,
+  FaPython,
+  FaJava,
+  SiPrisma,
+  VscVscode,
+  FaWindows,
+  SiPostman,
+  SiVercel,
+  SiNetlify,
+  SiNotion,
 };

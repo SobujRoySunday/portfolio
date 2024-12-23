@@ -7,7 +7,7 @@ import { FaEnvelope, FaGithub, FaInstagram, FaLinkedin, FaSquareXTwitter } from 
 
 const Footer = () => {
   return (
-    <footer className="border-t-2 flex flex-col sm:flex-row gap-4 sm:gap-0 justify-between items-center p-8 mt-12">
+    <footer className="border-t-2 flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-center p-8 mt-12">
       {/* Social Links */}
       <div>
         <ul className="flex flex-row gap-2 text-gray-800">
