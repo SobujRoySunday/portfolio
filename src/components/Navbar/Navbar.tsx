@@ -22,7 +22,7 @@ const Navbar = () => {
                     ☰
                 </button>
                 {/* Desktop menu */}
-                <ul className="hidden md:flex flex-row">
+                <ul className="hidden md:flex flex-row gap-2">
                     {NAV_ITEMS.map((item, index) => (
                         <li key={index}>
                             <Link

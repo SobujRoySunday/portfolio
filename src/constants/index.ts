@@ -13,7 +13,7 @@ import {
   FaJava,
   FaWindows,
 } from "react-icons/fa";
-import { FaSquareXTwitter } from "react-icons/fa6";
+import { FaSquareXTwitter, FaStar } from "react-icons/fa6";
 import { IoLogoJavascript } from "react-icons/io";
 import {
   SiExpress,
@@ -27,6 +27,9 @@ import {
 } from "react-icons/si";
 import { RiTailwindCssFill } from "react-icons/ri";
 import { VscVscode } from "react-icons/vsc";
+import { CiStar } from "react-icons/ci";
+import { RiEdit2Fill } from "react-icons/ri";
+import { RiDeleteBin2Fill } from "react-icons/ri";
 
 import UP_ARROW_IMAGE from "../../public/assets/up-arrow.png";
 import PERSON_IMAGE from "../../public/assets/me.png";
@@ -106,4 +109,8 @@ export {
   SiVercel,
   SiNetlify,
   SiNotion,
+  CiStar,
+  FaStar,
+  RiEdit2Fill,
+  RiDeleteBin2Fill,
 };

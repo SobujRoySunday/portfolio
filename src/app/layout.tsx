@@ -16,9 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className='fixed rotate-90 text-[300px] md:text-[420px] font-black top-[5rem] left-[-15rem] md:left-[-20rem] -z-10 opacity-5'>DEV</div>
-        <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   )
