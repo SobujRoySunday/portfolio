@@ -1,3 +1,4 @@
+import { connectToMongoDB } from "@/lib/db";
 import { projectModel } from "@/models";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -14,6 +15,7 @@ export async function POST(request: NextRequest) {
     const projectData = data.projectData;
 
     // edit the project
+    await connectToMongoDB();
     const project = await projectModel.findOne({ _id: projectId });
     project.name = projectData.name;
     project.description = projectData.description;

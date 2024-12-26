@@ -1,3 +1,4 @@
+import { connectToMongoDB } from "@/lib/db";
 import { projectModel } from "@/models";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,6 +13,7 @@ export async function POST(request: NextRequest) {
     const projectId = (await request.json()).projectId;
 
     // delete the project
+    await connectToMongoDB();
     await projectModel.deleteOne({ _id: projectId });
 
     return NextResponse.json(

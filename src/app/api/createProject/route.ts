@@ -1,3 +1,4 @@
+import { connectToMongoDB } from "@/lib/db";
 import { projectModel } from "@/models";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,6 +13,7 @@ export async function POST(request: NextRequest) {
     const projectData = (await request.json()).projectData;
 
     // create a new project
+    await connectToMongoDB();
     const newProject = new projectModel(projectData);
     await newProject.save();
 
