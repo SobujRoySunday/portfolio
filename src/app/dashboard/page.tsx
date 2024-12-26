@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
-import { CiStar, FaStar, RiDeleteBin2Fill, RiEdit2Fill } from '@/constants'
+import { CiStar, FaStar, IoCreate, IoLogOut, RiDeleteBin2Fill, RiEdit2Fill } from '@/constants'
 
 interface Project {
   _id: string;
@@ -20,15 +20,33 @@ const Dashboard = () => {
   const [projects, setProjects] = React.useState<Project[]>([]);
   const router = useRouter();
   const [deleteDialog, setDeleteDialog] = React.useState(false);
+  const [projectEditor, setProjectEditor] = React.useState(false);
+  const [editorMode, setEditorMode] = React.useState('');
   const [selectedProjectId, setSelectedProjectId] = React.useState<String>('');
+  const [newProjectData, setNewProjectData] = React.useState({
+    name: '',
+    description: '',
+    image: '',
+    url: '',
+  })
 
   const handleLogout = () => {
     router.push('/api/logout');
   };
 
-  // TODO:
   const handleEdit = (id: String) => {
-    console.log(`Editing project with id: ${id}`);
+    setSelectedProjectId(id);
+    setEditorMode('edit');
+    setNewProjectData(() => {
+      const thisProject = projects.find((project) => project._id === id);
+      return {
+        name: thisProject?.name || '',
+        description: thisProject?.description || '',
+        image: thisProject?.image || '',
+        url: thisProject?.url || '',
+      }
+    })
+    setProjectEditor(true);
   };
 
   const handleDelete = (projectId: String) => {
@@ -65,12 +83,70 @@ const Dashboard = () => {
     }
   }
 
+  const handleSave = async () => {
+    try {
+      if (editorMode === 'edit') {
+        await axios.post('/api/editProject', { projectData: newProjectData, projectId: selectedProjectId });
+      } else if (editorMode === 'create') {
+        await axios.post('/api/createProject', { projectData: newProjectData });
+      } else {
+        throw new Error('Invalid editor mode');
+      }
+    } catch (error) {
+      console.error('Error saving project:', error);
+    } finally {
+      await getProjects();
+      setSelectedProjectId('');
+      setProjectEditor(false);
+    }
+  };
+
+  const handleCreate = () => {
+    setEditorMode('create');
+    setProjectEditor(true);
+  }
+
   useEffect(() => {
     getProjects();
   }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 relative">
+      {/* Project editor dialog box */}
+      {projectEditor && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-4 rounded-lg">
+            <p className="text-lg font-semibold mb-2">Edit Project</p>
+            <form className='flex flex-col w-96'>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-semibold mb-2" htmlFor='name' >Name</label>
+                <input type="text" className="w-full p-2 border border-gray-300 rounded-lg" name='name' value={newProjectData.name} onChange={(e) => setNewProjectData({ ...newProjectData, name: e.target.value })} placeholder='Project Name' />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-semibold mb-2" htmlFor='description'>Description</label>
+                <textarea className="w-full p-2 border border-gray-300 rounded-lg" rows={4} name='description' value={newProjectData.description} onChange={(e) => setNewProjectData({ ...newProjectData, description: e.target.value })} placeholder='Project Description' />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-semibold mb-2" htmlFor='image'>Image URL</label>
+                <input type="text" className="w-full p-2 border border-gray-300 rounded-lg" name='image' value={newProjectData.image} onChange={(e) => setNewProjectData({ ...newProjectData, image: e.target.value })} placeholder='Image URL' />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-semibold mb-2" htmlFor='url'>URL</label>
+                <input type="text" className="w-full p-2 border border-gray-300 rounded-lg" name='url' value={newProjectData.url} onChange={(e) => setNewProjectData({ ...newProjectData, url: e.target.value })} placeholder='Project URL' />
+              </div>
+            </form>
+            <div className="flex justify-end mt-4">
+              <button className="px-4 py-2 bg-red-500 text-white rounded-lg mr-2" onClick={() => { handleSave() }}>
+                Save
+              </button>
+              <button className="px-4 py-2 bg-gray-400 text-white rounded-lg mr-2" onClick={() => { setProjectEditor(false); setEditorMode(''); }}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Delete confirmation dialog box */}
       {deleteDialog && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -93,12 +169,20 @@ const Dashboard = () => {
       <div className="max-w-6xl mx-auto bg-white shadow-md rounded-lg">
         <div className="flex justify-between items-center p-6 border-b border-gray-200">
           <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-          >
-            Logout
-          </button>
+          <div className='flex gap-2'>
+            <button
+              onClick={handleCreate}
+              className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-900"
+            >
+              <IoCreate />
+            </button>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-900"
+            >
+              <IoLogOut />
+            </button>
+          </div>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 p-2">

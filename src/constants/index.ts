@@ -30,6 +30,8 @@ import { VscVscode } from "react-icons/vsc";
 import { CiStar } from "react-icons/ci";
 import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin2Fill } from "react-icons/ri";
+import { IoCreate } from "react-icons/io5";
+import { IoLogOut } from "react-icons/io5";
 
 import UP_ARROW_IMAGE from "../../public/assets/up-arrow.png";
 import PERSON_IMAGE from "../../public/assets/me.png";
@@ -113,4 +115,6 @@ export {
   FaStar,
   RiEdit2Fill,
   RiDeleteBin2Fill,
+  IoCreate,
+  IoLogOut,
 };
