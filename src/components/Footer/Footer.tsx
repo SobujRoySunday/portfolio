@@ -27,7 +27,7 @@ const Footer = () => {
         </ul>
       </div>
 
-      <p className="text-sm text-gray-500">Developed with ❤️ by <span className="font-semibold">Sorbopriyo Roy</span></p>
+      <p className="text-sm text-gray-500 text-center my-2 sm:my-0">Developed with ❤️ by <span className="font-semibold">Sorbopriyo Roy</span></p>
 
       <div className="text-sm">
         <button className="flex items-center gap-2" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
