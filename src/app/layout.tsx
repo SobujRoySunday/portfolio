@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Footer, Navbar } from '@/components'
 
 export const metadata: Metadata = {
   title: 'Sorbopriyo Roy - Full stack Developer',
@@ -21,5 +20,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-export const fetchCache = 'force-no-store'; 
