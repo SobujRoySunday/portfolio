@@ -22,5 +22,4 @@ export default function RootLayout({
   )
 }
 
-export const revalidate = 0
-// false | 0 | number
+export const fetchCache = 'force-no-store'; 
