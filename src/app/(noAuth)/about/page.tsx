@@ -3,31 +3,41 @@ import Image from 'next/image'
 import React from 'react'
 
 const SKILLS = [
-  { icon: null, label: 'C' },
+  { icon: FaPython, label: 'Python' },
+  { icon: null, label: 'TypeScript' },
+  { icon: IoLogoJavascript, label: 'JavaScript' },
   { icon: null, label: 'C++' },
-  { icon: FaHtml5, label: null },
-  { icon: FaCss3, label: null },
-  { icon: IoLogoJavascript, label: null },
-  { icon: FaReact, label: null },
-  { icon: FaNode, label: null },
-  { icon: SiExpress, label: null },
-  { icon: SiNextdotjs, label: null },
-  { icon: RiTailwindCssFill, label: null },
-  { icon: SiMongodb, label: null },
-  { icon: FaGitAlt, label: null },
-  { icon: FaPython, label: null },
-  { icon: FaJava, label: null },
-  { icon: SiPrisma, label: null },
+  { icon: null, label: 'C' },
+  { icon: FaJava, label: 'Java' },
+  { icon: null, label: 'SQL' },
+  { icon: FaHtml5, label: 'HTML5' },
+  { icon: FaCss3, label: 'CSS3' },
+  { icon: FaReact, label: 'React.js' },
+  { icon: SiNextdotjs, label: 'Next.js' },
+  { icon: RiTailwindCssFill, label: 'Tailwind' },
+  { icon: FaNode, label: 'Node.js' },
+  { icon: SiExpress, label: 'Express.js' },
+  { icon: null, label: 'FastAPI' },
+  { icon: null, label: 'Springboot' },
+  { icon: SiMongodb, label: 'MongoDB' },
+  { icon: null, label: 'PostgreSQL' },
+  { icon: SiPrisma, label: 'Prisma' },
+  { icon: null, label: 'Langchain' },
+  { icon: null, label: 'MCP' },
+  { icon: null, label: 'Agentic AI' },
+  { icon: null, label: 'Microservices' },
 ];
 
 const TOOLS = [
-  { icon: VscVscode, label: null },
-  { icon: FaWindows, label: null },
-  { icon: SiPostman, label: null },
-  { icon: SiVercel, label: null },
-  { icon: SiNetlify, label: null },
-  { icon: SiNotion, label: null },
-  { icon: FaGithub, label: null },
+  { icon: FaGitAlt, label: 'Git' },
+  { icon: FaGithub, label: 'GitHub' },
+  { icon: null, label: 'Docker' },
+  { icon: null, label: 'AWS' },
+  { icon: VscVscode, label: 'VS Code' },
+  { icon: SiPostman, label: 'Postman' },
+  { icon: SiNotion, label: 'Notion' },
+  { icon: null, label: 'JIRA' },
+  { icon: null, label: 'Confluence' },
 ];
 
 const page = () => {
@@ -49,8 +59,8 @@ const page = () => {
           <div className='glass-panel p-6 animate-fade-in-up delay-200'>
             <p className='text-lg sm:text-xl leading-[1.75rem] sm:leading-[2.25rem] font-rajdhani text-text-secondary'>
               Hello, I&apos;m <span className='text-warp-cyan font-semibold'>Sorbopriyo Roy</span>, from <span className='text-lcars-amber'>Kolkata, India.</span><br />
-              I am currently a B.TECH(IT) student at Techno International New Town.<br />
-              I am a passionate <span className='text-warp-cyan font-semibold'>MERN Stack Developer</span> with ability to continuously learn and adapt to new technologies.
+              Currently, an Associate Software Engineer Trainee at NRI Fintech India.<br />
+              I am a passionate <span className='text-warp-cyan font-semibold'>Software Engineer</span>, working around with AI and backend systems. I write clean, maintainable code built to last.
             </p>
           </div>
 
@@ -97,8 +107,9 @@ const page = () => {
               className='w-full sm:w-[180px] glass-panel flex justify-center items-center py-6 card-hover group cursor-default'
               style={{ animationDelay: `${index * 80}ms` }}
             >
-              <div className='text-4xl font-orbitron font-medium text-text-secondary group-hover:text-warp-cyan transition-colors duration-300'>
-                {skill.icon ? <skill.icon /> : skill.label}
+              <div className='flex flex-col items-center gap-2 font-orbitron font-medium text-text-secondary group-hover:text-warp-cyan transition-colors duration-300 text-center'>
+                {skill.icon && <skill.icon className='text-4xl' />}
+                {skill.label && <span className='text-sm uppercase tracking-wider'>{skill.label}</span>}
               </div>
             </div>
           ))}
@@ -124,8 +135,9 @@ const page = () => {
               className='w-full sm:w-[180px] glass-panel flex justify-center items-center py-6 card-hover group cursor-default'
               style={{ animationDelay: `${index * 80}ms` }}
             >
-              <div className='text-4xl font-medium text-text-secondary group-hover:text-lcars-amber transition-colors duration-300'>
-                {tool.icon ? <tool.icon /> : tool.label}
+              <div className='flex flex-col items-center gap-2 font-orbitron font-medium text-text-secondary group-hover:text-lcars-amber transition-colors duration-300 text-center'>
+                {tool.icon && <tool.icon className='text-4xl' />}
+                {tool.label && <span className='text-sm uppercase tracking-wider'>{tool.label}</span>}
               </div>
             </div>
           ))}

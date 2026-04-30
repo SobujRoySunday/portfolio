@@ -27,7 +27,7 @@ const About = () => {
 
                     <div className='glass-panel p-6 md:p-8 animate-fade-in-up delay-200'>
                         <p className='text-base md:text-xl font-rajdhani uppercase leading-7 md:leading-9 text-text-secondary'>
-                            Turning code into conversation! For the past <b className='text-warp-cyan'>6 years</b>, my world has revolved around transforming ideas into digital realities as a dedicated <b className='text-lcars-amber'>MERN Stack developer</b>. With a deep dive into the realms of <b className='text-shield-purple'>T3 and LAMP Stacks</b>, my toolkit is ever-expanding, mirroring my quest for learning.
+                            Software engineer working with AI and backend systems! At NRIFT India, I&apos;ve spent the past year designing and shipping AI-driven apps and <b className='text-warp-cyan'>MCP integrations</b>. With a deep dive into the realms of <b className='text-lcars-amber'>Agentic AI Workflows</b> and <b className='text-shield-purple'>Microservices</b>, I write clean, maintainable code built to last.
                         </p>
                     </div>
 

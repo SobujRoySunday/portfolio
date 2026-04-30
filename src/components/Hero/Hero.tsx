@@ -60,16 +60,16 @@ const Hero = () => {
                         </div>
                         <div>
                             <p className="text-xs md:text-lg font-rajdhani font-medium text-text-secondary tracking-wider uppercase">
-                                CURRENTLY STUDYING <span className='inline md:hidden'>AT TECHNO INTERNATIONAL NEW TOWN</span>
+                                SOFTWARE ENGINEER TRAINEE <span className='inline md:hidden'>AT NRI FINTECH</span>
                             </p>
                             <p className="text-xs md:text-lg font-rajdhani font-medium text-text-secondary tracking-wider uppercase hidden md:block">
-                                AT TECHNO INTERNATIONAL NEW TOWN
+                                AT NRI FINTECH INDIA
                             </p>
                         </div>
                     </div>
                     <div className='flex items-center gap-2'>
                         <div className='w-8 h-[2px] bg-lcars-amber/40 rounded-full' />
-                        <p className="text-xs md:text-lg font-mono text-warp-cyan tracking-widest">(2022 - PRESENT)</p>
+                        <p className="text-xs md:text-lg font-mono text-warp-cyan tracking-widest">(2025 - PRESENT)</p>
                     </div>
                 </div>
 
