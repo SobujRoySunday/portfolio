@@ -9,19 +9,69 @@ const Projects = async () => {
   const projects = await projectModel.find({ isStarred: true });
 
   return (
-    <section id='projects' className='flex justify-center items-center'>
-      <div className='w-full md:w-4/5 flex flex-col justify-center mt-12 px-2 md:px-0'>
-        <h2 className="uppercase text-[3.25rem] md:text-[10rem] font-bold">Projects</h2>
-        <div className='flex flex-wrap gap-4 md:gap-8 justify-center'>
+    <section id='projects' className='flex justify-center items-center py-20'>
+      <div className='w-full md:w-4/5 flex flex-col justify-center px-4 md:px-0'>
+        {/* Section label */}
+        <div className='flex items-center gap-3 mb-4'>
+          <div className='w-12 h-1 rounded-full bg-warp-cyan' />
+          <span className='font-mono text-xs text-warp-cyan tracking-[0.3em] uppercase'>Featured Work</span>
+        </div>
+
+        <h2 className="section-title text-[3.25rem] md:text-[8rem] text-gradient-warp leading-none">
+          Projects
+        </h2>
+
+        <div className='flex flex-wrap gap-6 md:gap-8 justify-center mt-12'>
           {projects.length > 0 && projects.map((project, index) => (
-            <Link href={project.url} key={project.id} className={`w-96 flex flex-col shadow-xl hover:scale-105 transition rounded-xl bg-background gap-4 pb-4`} target='_blank'>
-              <Image width={1280} height={720} src={project.image} alt={project.name} className="object-cover" priority />
-              <h2 className="px-4 text-3xl font-semibold">{project.name}</h2>
-              <p className="px-4 text-md font-medium text-gray-700">{project.description}</p>
+            <Link 
+              href={project.url} 
+              key={project.id} 
+              className='group w-full sm:w-96 glass-panel overflow-hidden card-hover relative holo-shimmer'
+              target='_blank'
+            >
+              {/* Image container */}
+              <div className='relative overflow-hidden'>
+                <Image 
+                  width={1280} 
+                  height={720} 
+                  src={project.image} 
+                  alt={project.name} 
+                  className="object-cover w-full h-52 transition-transform duration-700 group-hover:scale-110" 
+                  priority 
+                />
+                {/* Overlay gradient */}
+                <div className='absolute inset-0 bg-gradient-to-t from-panel via-transparent to-transparent opacity-60' />
+                {/* Starred badge */}
+                <div className='absolute top-3 right-3 flex items-center gap-1 bg-lcars-amber/20 backdrop-blur-sm px-2 py-1 rounded-full border border-lcars-amber/30'>
+                  <div className='w-1.5 h-1.5 rounded-full bg-lcars-amber' />
+                  <span className='font-mono text-[10px] text-lcars-amber tracking-wider'>STARRED</span>
+                </div>
+              </div>
+              {/* Content */}
+              <div className='p-5 flex flex-col gap-2'>
+                <h2 className="text-xl font-orbitron font-semibold text-text-primary group-hover:text-warp-cyan transition-colors duration-300">
+                  {project.name}
+                </h2>
+                <p className="text-sm font-rajdhani text-text-secondary leading-relaxed">
+                  {project.description}
+                </p>
+                {/* Hover reveal arrow */}
+                <div className='flex items-center gap-2 mt-2 text-warp-cyan opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-10px] group-hover:translate-x-0'>
+                  <div className='w-6 h-[1px] bg-warp-cyan' />
+                  <span className='font-mono text-xs tracking-widest'>VIEW</span>
+                </div>
+              </div>
             </Link>
           ))}
         </div>
-        <Link href="/projects" className="mt-12 self-center text-base w-fit px-8 py-4 border-2 border-foreground hover:bg-foreground hover:text-white transition">View All Projects</Link>
+
+        <Link 
+          href="/projects" 
+          className="btn-warp mt-16 self-center"
+        >
+          <span className='w-2 h-2 rounded-full bg-warp-cyan animate-warp-pulse' />
+          View All Projects
+        </Link>
       </div>
     </section>
   )
