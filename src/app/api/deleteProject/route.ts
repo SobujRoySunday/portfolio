@@ -1,20 +1,26 @@
+import { requireAuth } from "@/lib/auth";
 import { connectToMongoDB } from "@/lib/db";
+import { isValidObjectId } from "@/lib/validate";
 import { projectModel } from "@/models";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
+  const unauthorized = requireAuth(request);
+  if (unauthorized) return unauthorized;
+
   try {
-    // check if the user is logged in
-    const authToken = request.cookies.get("authToken")?.value;
-    if (!authToken) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    const { projectId } = await request.json();
+
+    if (!isValidObjectId(projectId)) {
+      return NextResponse.json({ message: "Invalid project id" }, { status: 400 });
     }
 
-    const projectId = (await request.json()).projectId;
-
-    // delete the project
     await connectToMongoDB();
-    await projectModel.deleteOne({ _id: projectId });
+    const { deletedCount } = await projectModel.deleteOne({ _id: projectId });
+
+    if (deletedCount === 0) {
+      return NextResponse.json({ message: "Project not found" }, { status: 404 });
+    }
 
     return NextResponse.json(
       { message: "Project deleted successfully" },

@@ -1,20 +1,36 @@
 import mongoose from "mongoose";
 
-const connectToMongoDB = async () => {
-  try {
-    // check if the database is already connected
-    if (mongoose.connection.readyState === 1) {
-      console.log("Already connected to MongoDB: ", mongoose.connection.host);
-      return;
-    }
+/**
+ * In dev, Next's hot reload re-evaluates modules on every change, so the
+ * in-flight promise is cached on `globalThis` to avoid opening a new pool each
+ * time.
+ */
+const globalWithMongoose = globalThis as typeof globalThis & {
+  _mongooseConnection?: Promise<typeof mongoose> | null;
+};
 
-    const MONGODB_URI = process.env.MONGODB_URI || "";
-    const response = await mongoose.connect(MONGODB_URI);
-    console.log("MongoDB connected successfully:", response.connection.host);
-  } catch (error) {
-    console.error("Error connecting to MongoDB: ", error);
-    process.exit(1);
+const connectToMongoDB = async () => {
+  if (mongoose.connection.readyState === 1) return mongoose;
+
+  const MONGODB_URI = process.env.MONGODB_URI;
+  if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI is not set");
   }
+
+  if (!globalWithMongoose._mongooseConnection) {
+    globalWithMongoose._mongooseConnection = mongoose
+      .connect(MONGODB_URI, { bufferCommands: false })
+      .catch((error) => {
+        // Clear the cache so the next request retries instead of reusing a
+        // permanently rejected promise.
+        globalWithMongoose._mongooseConnection = null;
+        throw error;
+      });
+  }
+
+  // Never `process.exit` here: a transient database error would take down the
+  // whole server, including pages that do not touch the database.
+  return globalWithMongoose._mongooseConnection;
 };
 
 export default connectToMongoDB;

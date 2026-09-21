@@ -1,28 +1,33 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { AUTH_COOKIE } from "@/lib/auth/constants";
 
 const pathList = {
   onlyAuthPaths: ["/dashboard"],
   onlyNoAuthPaths: ["/login"],
 };
 
-export async function middleware(request: NextRequest) {
-  const cookieStore = await cookies();
-  const authToken = cookieStore.get("authToken")?.value;
+/**
+ * Redirect-only. Middleware runs on the Edge runtime, which cannot verify the
+ * JWT signature, so this is a UX convenience and never a security boundary --
+ * the real checks live in `dashboard/layout.tsx` and in each API route.
+ */
+export function middleware(request: NextRequest) {
+  const hasAuthCookie = Boolean(request.cookies.get(AUTH_COOKIE)?.value);
+  const { pathname } = request.nextUrl;
 
   const isOnlyAuthPath = pathList.onlyAuthPaths.some((path) =>
-    request.nextUrl.pathname.startsWith(path)
+    pathname.startsWith(path)
   );
-  if (isOnlyAuthPath && !authToken) {
+  if (isOnlyAuthPath && !hasAuthCookie) {
     const url = request.nextUrl.clone();
-    url.pathname = "/";
+    url.pathname = "/login";
     return NextResponse.redirect(url);
   }
 
   const isOnlyNoAuthPath = pathList.onlyNoAuthPaths.some((path) =>
-    request.nextUrl.pathname.startsWith(path)
+    pathname.startsWith(path)
   );
-  if (isOnlyNoAuthPath && authToken) {
+  if (isOnlyNoAuthPath && hasAuthCookie) {
     const url = request.nextUrl.clone();
     url.pathname = "/dashboard";
     return NextResponse.redirect(url);
@@ -32,5 +37,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/login"],
+  matcher: ["/dashboard/:path*", "/login"],
 };
