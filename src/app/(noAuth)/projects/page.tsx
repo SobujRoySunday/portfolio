@@ -1,12 +1,26 @@
 import { connectToMongoDB } from '@/lib/db';
+import { isSafeHttpUrl } from '@/lib/validate';
 import { projectModel } from '@/models';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
+// Keeps the list fresh without rebuilding: see the note on the home page.
+export const revalidate = 60;
+
+const getProjects = async () => {
+  try {
+    await connectToMongoDB();
+    return await projectModel.find({}).lean();
+  } catch (error) {
+    // Render the empty state rather than a 500 if the database is unreachable.
+    console.error('Error loading projects:', error);
+    return [];
+  }
+}
+
 const ProjectPage = async () => {
-  await connectToMongoDB();
-  const projects = await projectModel.find({});
+  const projects = await getProjects();
 
   return (
     <main className="w-full pb-20">
@@ -24,7 +38,7 @@ const ProjectPage = async () => {
 
           <ul className='flex flex-col gap-6'>
             {projects.length > 0 ? projects.map((project) => (
-              <li key={project.id} className='group w-full glass-panel overflow-hidden card-hover relative holo-shimmer'>
+              <li key={String(project._id)} className='group w-full glass-panel overflow-hidden card-hover relative holo-shimmer'>
                 <div className='flex flex-col sm:flex-row'>
                   {/* Image */}
                   <div className='w-full sm:w-1/4 relative overflow-hidden'>
@@ -51,14 +65,17 @@ const ProjectPage = async () => {
                       {project.description}
                     </p>
 
-                    <Link 
-                      href={project.url} 
-                      className="btn-warp w-fit" 
-                      target='_blank'
-                    >
-                      <span className='w-2 h-2 rounded-full bg-warp-cyan' />
-                      View Project
-                    </Link>
+                    {isSafeHttpUrl(project.url) && (
+                      <Link 
+                        href={project.url} 
+                        className="btn-warp w-fit" 
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        <span className='w-2 h-2 rounded-full bg-warp-cyan' />
+                        View Project
+                      </Link>
+                    )}
                   </div>
                 </div>
               </li>

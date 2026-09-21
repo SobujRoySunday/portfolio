@@ -1,39 +1,36 @@
 # Stage 1: Build the Next.js application
 FROM node:18-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json (or yarn.lock) files
-COPY package*.json ./
+# Install dependencies from the lockfile for reproducible builds
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# Install dependencies
-RUN npm install
-
-# Copy the entire project to the container
 COPY . .
 
-# Build the Next.js application
 RUN npm run build
 
 # Stage 2: Serve the Next.js application with a lightweight image
 FROM node:18-alpine AS runner
 
-# Set working directory
 WORKDIR /app
 
-# Install only production dependencies
-COPY package*.json ./
-RUN npm install --production
+ENV NODE_ENV=production
 
-# Copy built application from the builder stage
+# Production dependencies only
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev && npm cache clean --force
+
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/package.json ./
 
-# Expose the port Next.js will run on
+# Next needs to write to .next/cache for ISR, so hand ownership to the
+# unprivileged user before dropping root.
+RUN chown -R node:node /app
+USER node
+
 EXPOSE 3000
 
-# Start the application
 CMD ["npm", "run", "start"]

@@ -1,20 +1,27 @@
+import { requireAuth } from "@/lib/auth";
 import { connectToMongoDB } from "@/lib/db";
+import { isValidObjectId } from "@/lib/validate";
 import { projectModel } from "@/models";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
+  const unauthorized = requireAuth(request);
+  if (unauthorized) return unauthorized;
+
   try {
-    // check if the user is logged in
-    const authToken = request.cookies.get("authToken")?.value;
-    if (!authToken) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    const { projectId } = await request.json();
+
+    if (!isValidObjectId(projectId)) {
+      return NextResponse.json({ message: "Invalid project id" }, { status: 400 });
     }
 
-    const projectId = (await request.json()).projectId;
-
-    // toggle the star for the project
     await connectToMongoDB();
-    const project = await projectModel.findOne({ _id: projectId });
+    const project = await projectModel.findById(projectId);
+
+    if (!project) {
+      return NextResponse.json({ message: "Project not found" }, { status: 404 });
+    }
+
     project.isStarred = !project.isStarred;
     await project.save();
 

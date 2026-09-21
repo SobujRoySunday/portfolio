@@ -1,12 +1,25 @@
 import { connectToMongoDB } from '@/lib/db/'
+import { isSafeHttpUrl } from '@/lib/validate'
 import { projectModel } from '@/models/'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
+const getStarredProjects = async () => {
+  try {
+    await connectToMongoDB();
+    const projects = await projectModel.find({ isStarred: true }).lean();
+    // Defensive: older rows were stored without URL validation.
+    return projects.filter((project) => isSafeHttpUrl(project.url));
+  } catch (error) {
+    // A database outage should degrade this section, not take down the page.
+    console.error('Error loading starred projects:', error);
+    return [];
+  }
+}
+
 const Projects = async () => {
-  await connectToMongoDB();
-  const projects = await projectModel.find({ isStarred: true });
+  const safeProjects = await getStarredProjects();
 
   return (
     <section id='projects' className='flex justify-center items-center py-20'>
@@ -22,12 +35,13 @@ const Projects = async () => {
         </h2>
 
         <div className='flex flex-wrap gap-6 md:gap-8 justify-center mt-12'>
-          {projects.length > 0 && projects.map((project, index) => (
+          {safeProjects.length > 0 && safeProjects.map((project, index) => (
             <Link 
               href={project.url} 
-              key={project.id} 
+              key={String(project._id)} 
               className='group w-full sm:w-96 glass-panel overflow-hidden card-hover relative holo-shimmer'
               target='_blank'
+              rel='noopener noreferrer'
             >
               {/* Image container */}
               <div className='relative overflow-hidden'>
